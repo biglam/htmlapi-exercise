@@ -1,9 +1,17 @@
 
-lothian_trams = {
-  one: ['Airport', 'Gyle Centre', 'Edinburgh Park', 'Murrayfield Stadium', 'Haymarket', 'Princes Street', 'York Place'],
-  two: ['Saltire Square', 'West Pilton', 'Telford Road', 'Craigleith', 'Haymarket'],
-  three: ['Gallery of Modern Art', 'Haymarket', 'EICC', 'Bread Street', 'Tollcross', 'The Meadows']
-}
+def journey_length(tram_line, start_station, end_station)
+  start_station_index = lothian_trams[tram_line].index(start_station)
+  end_station_index = lothian_trams[tram_line].index(end_station)
+  (start_station_index - end_station_index).abs
+end
+
+def lothian_trams
+  {
+    one: ['Airport', 'Gyle Centre', 'Edinburgh Park', 'Murrayfield Stadium', 'Haymarket', 'Princes Street', 'York Place'],
+    two: ['Saltire Square', 'West Pilton', 'Telford Road', 'Craigleith', 'Haymarket'],
+    three: ['Gallery of Modern Art', 'Haymarket', 'EICC', 'Bread Street', 'Tollcross', 'The Meadows']
+  }
+end
 
 puts `clear`
 puts "*** Lothian Trams ***"
@@ -19,19 +27,11 @@ print "Which stop on the #{end_tram} tram: #{lothian_trams[end_tram].join(', ')}
 end_station = gets.chomp
 
 if start_tram == end_tram
-  start_station_index = lothian_trams[start_tram].index(start_station)
-  end_station_index = lothian_trams[end_tram].index(end_station)
-  total_length_of_trip = (start_station_index - end_station_index).abs
+  total_length_of_trip = journey_length(start_tram, start_station, end_station)
 else
   intersection = (lothian_trams[start_tram] & lothian_trams[end_tram]).first
-
-  start_station_index = lothian_trams[start_tram].index(start_station)
-  start_station_intersection_index = lothian_trams[start_tram].index(intersection)
-  first_leg_length = (start_station_index - start_station_intersection_index).abs
-
-  end_station_index = lothian_trams[end_tram].index(end_station)
-  end_station_intersection_index = lothian_trams[end_tram].index(intersection)
-  second_leg_length = (end_station_index - end_station_intersection_index).abs
+  first_leg_length = journey_length(start_tram, start_station, intersection)
+  second_leg_length = journey_length(end_tram, intersection, end_station)
 
   total_length_of_trip = first_leg_length + second_leg_length
 end
