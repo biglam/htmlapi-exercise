@@ -1,0 +1,37 @@
+<header>
+  <!-- Ternary statement: The name of the quote if there is one. If not, the string "Enter stock symbol" -->
+  <h2><%= @quote ? @quote.name : "Enter stock symbol" %></h2>
+</header>
+
+<!-- Create a form that submits to "/" with the method get -->
+<form action='/' method='get'>
+  <input type='text' name='symbol' autofocus>
+  <button>Get quote</button>
+</form>
+
+<!-- If there is an instance variable called @quote -->
+<% if @quote %>
+  <table>
+    <!-- send() is an instance method of the Object class. -->
+    <!-- @quote.class is YahooFinance::StandardQuote object -->
+    <!-- The first argument to send( ) invokes the method identified by symbol -->
+    <!-- @quote.send(:instance_variables) is the same as @quote.instance_variables -->
+    <!-- Returns an array of instance variable names for the receiver. -->
+
+    <% @quote.instance_variables.each do |instance_variable| %>
+
+    <% instance_variable = instance_variable.to_s.gsub('@', '') %>
+      <%  if @quote.respond_to?(instance_variable) %>
+        <tr>
+          <td><%= instance_variable.capitalize %></td>
+          <td><%= @quote.send(instance_variable) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
+
+
+
+
+

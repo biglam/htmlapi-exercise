@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("http://wallpaperpassion.com/upload/25258/lots-of-dollars-image.jpg"); 
+  background-position: center; 
+  background-attachment: fixed;
+  line-height: 1.5em;
+}
+
+h1, h2 {
+  font-size: 2em;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+}
+
+h1 {
+  line-height: 4em;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+header, main, footer {
+  width: 600px;
+  margin: 0 auto;
+}
+
+main {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 3px;
+  min-height: 500px;
+}
+
+form {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: aquamarine;
+  border-radius: 3px;
+  border: none;
+}
+
+table {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+input[type="text"] {
+  border-radius: 4px;
+}
+
+footer {
+  width: 600px;
+  font-weight: bold;
+}
