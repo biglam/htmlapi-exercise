@@ -1,0 +1,66 @@
+<dl>
+  <dt>
+    <label>Name:</label>
+  </dt>
+  <dd>
+    <%=@recipe.name %>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label>Description:</label>
+  </dt>
+  <dd>
+    <%=@recipe.description %>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label>Category:</label>
+  </dt>
+  <dd>
+    <%= @recipe.category.name if @recipe.category %>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label>Ingredients:</label>
+  </dt>
+  <dd>
+    <% if @recipe.ingredients.any? %>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @recipe.ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.name %></td>
+        <td><%= ingredient.quantity %></td>
+        <td><%= ingredient.unit %></td>
+        <td>
+          <a href="/recipes/<%= @recipe.id %>/ingredients/<%= ingredient.id %>/edit">edit</a>
+        </td>
+        <td>
+          <form action='/recipes/<%= @recipe.id %>/ingredients/<%= ingredient.id %>/delete' method='post'>
+            <button>delete</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <% end %>
+    <a href="/recipes/<%= @recipe.id %>/ingredients/new">buy ingredient</a>
+  </dd>
+</dl>
+
+<a href='/recipes/<%=@recipe.id%>/edit'>edit</a>
+
+<div class='clear_both'></div>
+

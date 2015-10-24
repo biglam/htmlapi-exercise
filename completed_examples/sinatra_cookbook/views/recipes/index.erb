@@ -1,0 +1,33 @@
+<a href='/recipes/new'>new recipe</a>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @recipes.each do |recipe| %>
+  <tr>
+    <td>
+      <%= recipe.name %>
+    </td>
+    <td>
+      <%= recipe.category.name if recipe.category %> 
+    </td>
+    <td>
+      <a href='/recipes/<%=recipe.id%>'>show</a>
+    </td>
+    <td>
+      <a href='/recipes/<%=recipe.id%>/edit'>edit</a>
+    </td>
+    <td>
+      <form action='/recipes/<%=recipe.id%>/delete' method='post'>
+        <button>delete</button>
+      </form>
+    </tr>
+    <% end %>
+  </tr>
+</table>
+

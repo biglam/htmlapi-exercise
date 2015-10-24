@@ -1,0 +1,19 @@
+<a href='/categories/new'>new category</a>
+
+<form method="get" action="/categories">
+  <input type="text" id="search" name="search">
+  <button>Search Category Name</button>
+</form>
+
+<ul>
+  <% @categories.each do |category| %>
+  <li>
+    <%= category.name %>
+    <%= category.recipes.map(&:name).join(', ') %>
+    <a href='/categories/<%=category.id%>/edit'>edit</a>
+    <form action='/categories/<%=category.id%>/delete' method='post'>
+      <button>delete</button>
+    </form>
+  </li>
+  <% end %>
+</ul>

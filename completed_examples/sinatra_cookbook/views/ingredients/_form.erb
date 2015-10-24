@@ -1,0 +1,38 @@
+<dl>
+  <dt>
+    <label>Recipe:</label>
+  </dt>
+  <dd>
+    <%=@recipe.name %>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label for='ingredient_name'>Name:</label>
+  </dt>
+  <dd>
+    <input id='ingredient_name' type='text' name='ingredient[name]' value='<%=@ingredient.name %>'>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label for='ingredient_quantity'>Quantity:</label>
+  </dt>
+  <dd>
+    <input id='ingredient_quantity' type='text' name='ingredient[quantity]' value='<%=@ingredient.quantity %>'>
+  </dd>
+</dl>
+
+<dl>
+  <dt>
+    <label for='ingredient_unit'>Unit:</label>
+  </dt>
+  <dd>
+    <input id='ingredient_unit' type='text' name='ingredient[unit]' value='<%=@ingredient.unit %>'>
+  </dd>
+</dl>
+
+<div class='clear_both'></div>
+
