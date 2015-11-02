@@ -1,7 +1,5 @@
 # Rails Cookbook HMT
 
-[i]: As part of the homework review - run through this process of switching the association between Recipes and Ingredients from "has_and_belongs_to_many" to a "has_many :through".
-
 Did anyone notice any limitation to the HABTM association between the Recipe and Ingredient models?
 
 The biggest is surely that there is no way to say *how much* of any given ingredient is needed on each recipe.
@@ -70,8 +68,6 @@ And in the quantity index and show pages, use the names for the associated objec
 
 If we migrate and run can we create and display `Quantity` objects happily?
 
-[i]: Go into the app and create two quantities for one recipe.
-
 And what if we view the recipe now? It breaks, because we removed the `has_and_belongs_to_many :ingredients`, and we didn't replace it with anything else.
 
 So lets add a new type of association; and tell Rails that there is an association between recipes and ingredients *through* the quantities.
@@ -92,13 +88,14 @@ Notice that the `through` association *has* to be defined after the source assoc
 
 That should be enough to fix the show pages for recipes and ingredients, but the forms currently don't set the quantity, so best to remove them for now.
 
-[i]: remove the `f.collection_check_boxes` code from the recipes and ingredients forms.
+Remove the `f.collection_check_boxes` code from the recipes and ingredients forms.
 
 Lastly, in the show page for recipes, alter the iterator to loop through associated quantities and show the quantity too.
 
 ```
   # app/views/recipes/show.rb
   <% @recipe.quantities.each do |quantity| %>
+    <%= quantity.amount %>
     <%= quantity.recipe.try(:name) %><br>
   <% end %>
 ```
