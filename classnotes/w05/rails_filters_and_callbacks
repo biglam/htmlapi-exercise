@@ -1,0 +1,63 @@
+# Filters and Callbacks
+
+##Filters
+
+Filters allow us to declare common functionality in our controller actions.
+
+```
+  #terminal
+  rake db:reset
+  rails s
+```
+app/controllers/teams_controller.rb
+Notice the duplicated functionality of the loading in a team using the params id in the edit update show and destroy actions of the teams controller.
+We can dry this up by putting this behaviour into a method (load_team)
+```
+  #app/controllers/teams_controller.rb
+  def edit
+    load_team
+  end
+
+  def update
+    load_team
+    @team.update(team_params)
+    redirect_to(teams_path)
+  end
+
+  def show
+    load_team
+  end
+
+  def destroy
+    load_team
+    @team.destroy # Never... ever... ever call `.delete`. Get in good habits now!
+    redirect_to(teams_path)
+  end
+  private
+  def load_team
+    @team = Team.find(params[:id])
+  end
+```
+We still have to call the load team method in each of the actions.  Notice that we do this at the beginning of each action.  Filters allow us to declare methods to be called, before, after or around each action.
+
+```
+  #app/controllers/teams_controller.rb
+  before_action :load_team, except:[:index, :new, :create]
+```
+-- remove calls to load team
+
+The most common use case for filters is for user authentication.  
+before_action :authenticate_user.  We'll see this later in the authentication example later in the week. 
+
+Filters are inherited so defining them in the application controller will have them applied throughout.
+
+
+## Callbacks
+  Like filters, but for ActiveRecord models. They're methods that get called at certain times in an object's lifecycle (hooks).
+
+  - Callbacks are registed in the class, and generally are defined like this
+
+    ```
+      before_validation :ensure_login_has_a_value
+      before_save :normalize_card_number, :if => :paid_with_card?
+
