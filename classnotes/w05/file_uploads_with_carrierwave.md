@@ -1,22 +1,4 @@
-### title
-
-File Uploads with Carrierwave
-
-### topic
-
-### objectives
-
-### standards
-
-### materials
-
-### summary
-
-### assessment
-
-### follow-up
-
-====================
+# File Uploads with Carrierwave
 
 So far, when we've wanted to include use-supplied images in our apps, we've had to have a URL stored as a string, pointing at an image on the internet. We've used that URL as the source attribute of an image tage, and it's worked pretty well.
 
@@ -52,8 +34,6 @@ To use Carrierwave, we just need to add the gem to our gemfile.
   gem 'carrierwave'
 ```
 
-[i]: There *was* a problem with Carrierwave 0.10.0 and Rails 3... so we used `gem 'carrierwave', '0.9.0'` to restrict. TODO: check that it's fine now with Rails 4.x
-
 And whenever you alter the Gemfile, you need to install with Bundle before you can start your server.
 
 ```
@@ -74,7 +54,7 @@ We just want one uploader for our app (for now), and that will be for the Recipe
   rails g uploader RecipeImage
 ```
 
-This will create an `app/uploaders/recipe_image_uploader.rb` file for us, which is populated with default content - the minimum needed to store the uploaded files for us. 
+This will create an `app/uploaders/recipe_image_uploader.rb` file for us, which is populated with default content - the minimum needed to store the uploaded files for us.
 
 But as yet, we have not actually tied this uploader to our `Recipe` model -- the fact that the uploader has 'Recipe' in its name is just happenstance; we need to tell Rails how these two classes are related.
 
@@ -100,9 +80,9 @@ Check the content of the migration that was created, to ensure it's add a string
 
 # Mount uploader
 
-Now we have a field in the database for an upload to be associated to our Recipe, we will "mount" our uploader onto that new field. 
+Now we have a field in the database for an upload to be associated to our Recipe, we will "mount" our uploader onto that new field.
 
-``` 
+```
   # app/models/recipe.rb
   class Recipe < ActiveRecord::Base
     mount_uploader :recipe_image, RecipeImageUploader
@@ -187,7 +167,7 @@ For this app, we'll create two extra versions: a small, cropped thumbnail, and a
   version :medium do
     process :resize_to_fit => [400, 400]
   end
-  
+
   inside of image uploaders uncomment the line bellow:
 ```
 
@@ -206,14 +186,12 @@ We've uncommented the `include CarrierWave::RMagick` line, so we need to make su
   bundle install
 ```
 
-[i]: if this breaks with an error finding 'MagickWand.h' then `brew install pkg-config` and bundle again
-
 
 # Using the versions
 
 At the moment, we're using the default version of the image -- the same as the user uploaded. Change the view to display the thumbnail, and link to the 'medium' version.
 
-Now we can go back into our  view and update this line:
+Now we can go back into our view and update this line:
 
 ```
   # app/views/recipes/show.html.erb
