@@ -7,10 +7,10 @@ def expect(thing, other_thing=true)
   print ?.
 end
 
-def print_board(g)
-  puts g.board_symbols.each_slice(3).map do |row|
+def print_board(game)
+  puts(game.board_symbols.each_slice(3).map do |row|
     row.map { |e| e || ' ' }.join(' | ')
-  end.join("\n---------\n")
+  end.join("\n---------\n"))
 end
 
 
